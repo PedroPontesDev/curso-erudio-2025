@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.curso_erudio.course.exceptions.UnsupportedMathOperationException;
+
 @RestController
 @RequestMapping(path = "/math")
 public class MathController {
@@ -13,7 +15,7 @@ public class MathController {
 			throws Exception {
 
 		if (!isNumeric(numberOne, numberTwo))
-			throw new Exception("Error você está iinserindo caracters");
+			throw new UnsupportedMathOperationException("Error você está inserindo caracters");
 
 		Double number1 = Double.parseDouble(numberOne);
 		Double number2 = Double.parseDouble(numberTwo);
@@ -21,6 +23,17 @@ public class MathController {
 		return number1 + number2;
 	}
 
+	@RequestMapping("/division/{numberOne}/{numberTwo}")
+	public Double division(@PathVariable String numberOne, @PathVariable String numberTwo) {
+		
+		if (!isNumeric(numberOne, numberTwo))
+			throw new UnsupportedMathOperationException("Error você está inserindo caracters");
+		Double number1 = Double.parseDouble(numberOne);
+		Double number2 = Double.parseDouble(numberTwo);
+		
+		return number1 / number2;
+	}
+	
 	private boolean isNumeric(String numberOne, String numberTwo) {
 		if (numberOne == null && numberTwo == null || numberOne.isEmpty() && numberTwo.isEmpty())
 			return false;
