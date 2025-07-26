@@ -20,7 +20,7 @@ public class PersonController {
 	PersonServices personServices;
 	
 	@RequestMapping(path = "/{id}", consumes = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Person> findById(@PathVariable String id) {
+	public ResponseEntity<Person> findById(@PathVariable Long id) {
 		Person finded = personServices.findById(id);
 		return new ResponseEntity<>(finded, HttpStatus.OK);
 	}
