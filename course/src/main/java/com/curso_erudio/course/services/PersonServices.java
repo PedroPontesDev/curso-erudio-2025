@@ -4,27 +4,39 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.curso_erudio.course.controllers.TestLogController;
 import com.curso_erudio.course.exceptions.ResourceNotFoundException;
 import com.curso_erudio.course.model.entity.Person;
 import com.curso_erudio.course.repository.PersonRepository;
 
+import com.curso_erudio.course.services.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
 @Service
 public class PersonServices {
 
-	private Logger logger = Logger.getLogger(PersonServices.class.getName());
+	private Logger logger = LoggerFactory.getLogger(PersonServices.class);
 
+	
 	@Autowired
 	private PersonRepository personRepo;
 
 	public Person findById(Long Id) {
-		logger.info("Finding Persons");
+		logger.debug("Finding Persons");
 		Person existentPerson = personRepo.findById(Id)
-								.orElseThrow(() -> new ResourceNotFoundException("RESOURCE NOT FOUND WITH THIS ID!" + Id));
+								.orElseThrow(() -> {
+									logger.error("Pessoa não encontrada");
+									return new ResourceNotFoundException("RESOURCE NOT FOUND WITH THIS ID!");
+									});
 		return existentPerson;	
 	}
 

@@ -16,6 +16,6 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: false
 
-logging:  # <-- Corrigido aqui!
+logging:
   level:
-    com.curso_erudio.course: DEBUG 
+   com.curso_erudio.course: DEBUG
